@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agriculture Monitoring Dashboard</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .switch {
+          position: relative;
+          display: inline-block;
+          width: 60px;
+          height: 34px;
+        }
+
+        .switch input { 
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #ccc;
+          -webkit-transition: .4s;
+          transition: .4s;
+        }
+
+        .slider:before {
+          position: absolute;
+          content: "";
+          height: 26px;
+          width: 26px;
+          left: 4px;
+          bottom: 4px;
+          background-color: white;
+          -webkit-transition: .4s;
+          transition: .4s;
+        }
+
+        input:checked + .slider {
+          background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+          box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+          -webkit-transform: translateX(26px);
+          -ms-transform: translateX(26px);
+          transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+          border-radius: 34px;
+        }
+
+        .slider.round:before {
+          border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hamburger Menu -->
+        <button class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1 style="margin-top: 25px;">Sensor Dashboard</h1>
+            </div>
+            <nav class="sensor-nav">
+                <ul id="sensor-list">
+                    <li data-sensor="home" class="active">Dashboard</li>
+                    <li data-sensor="n2">Node 2</li>
+                    <li data-sensor="n3">Node 3</li>
+                    <li data-sensor="n4">Node 4</li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="dashboard-header">
+                <h2>Sensor Readings</h2>
+                <div id="connection-status" class="connection-status">
+                    <i class="fas fa-circle"></i> Connecting...
+                </div>
+            </div>
+
+            <div id="all-sensors" class="all-sensors-container">
+                <div class="sensor-row" id="sensor-n2">
+                    <h3>Sensor N2</h3>
+                    <div class="controls-and-gauges">
+                        <div class="gauges-container">
+                        <div class="gauge-card">
+                            <h3>Temperature</h3>
+                            <canvas id="n2-temperature-gauge"></canvas>
+                            <div id="n2-temp" class="gauge-value">--°C</div>
+                        </div>
+                        <div class="gauge-card">
+                            <h3>Humidity</h3>
+                            <canvas id="n2-humidity-gauge"></canvas>
+                            <div id="n2-humidity" class="gauge-value">--%</div>
+                        </div>
+                        <div class="gauge-card">
+                            <h3>Soil Moisture</h3>
+                            <canvas id="n2-moisture-gauge"></canvas>
+                            <div id="n2-moisture" class="gauge-value">--%</div>
+                        </div>
+                        <div class="gauge-card control-card">
+                            <h3>Water Pump</h3>
+                            <div class="sensor-control">
+                                <label class="switch">
+                                    <input type="checkbox" class="sensor-toggle" data-sensor="n2">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                    
+                <div class="sensor-row" id="sensor-n3">
+                    <h3>Sensor N3</h3>
+                    <div class="controls-and-gauges">
+                        <div class="gauges-container">
+                            <div class="gauge-card">
+                                <h3>Temperature</h3>
+                                <canvas id="n3-temperature-gauge"></canvas>
+                                <div id="n3-temp" class="gauge-value">--°C</div>
+                            </div>
+                            <div class="gauge-card">
+                                <h3>Humidity</h3>
+                                <canvas id="n3-humidity-gauge"></canvas>
+                                <div id="n3-humidity" class="gauge-value">--%</div>
+                            </div>
+                            <div class="gauge-card">
+                                <h3>Soil Moisture</h3>
+                                <canvas id="n3-moisture-gauge"></canvas>
+                                <div id="n3-moisture" class="gauge-value">--%</div>
+                            </div>
+                            <div class="gauge-card control-card">
+                                <h3>Water Pump</h3>
+                                <div class="sensor-control">
+                                    <label class="switch">
+                                        <input type="checkbox" class="sensor-toggle" data-sensor="n3">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div> <!-- Closing gauges-container div that was missing -->
+                    </div> <!-- Closing controls-and-gauges div -->
+                </div> <!-- Closing sensor-row div -->
+                <div class="sensor-row" id="sensor-n4">
+                    <h3>Sensor N4</h3>
+                    <div class="controls-and-gauges">
+                        <div class="gauges-container">
+                        <div class="gauge-card">
+                            <h3>Temperature</h3>
+                            <canvas id="n4-temperature-gauge"></canvas>
+                            <div id="n4-temp" class="gauge-value">--°C</div>
+                        </div>
+                        <div class="gauge-card">
+                            <h3>Humidity</h3>
+                            <canvas id="n4-humidity-gauge"></canvas>
+                            <div id="n4-humidity" class="gauge-value">--%</div>
+                        </div>
+                        <div class="gauge-card">
+                            <h3>Soil Moisture</h3>
+                            <canvas id="n4-moisture-gauge"></canvas>
+                            <div id="n4-moisture" class="gauge-value">--%</div>
+                        </div>
+                        <div class="gauge-card control-card">
+                            <h3>Water Pump</h3>
+                            <div class="sensor-control">
+                                <label class="switch">
+                                    <input type="checkbox" class="sensor-toggle" data-sensor="n4">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="gauges-container" style="display: none;">
+                <!-- Temperature Gauge -->
+                <div class="gauge-card">
+                    <h3>Temperature</h3>
+                    <canvas id="temperature-gauge"></canvas>
+                    <div id="temperature-value" class="gauge-value">--°C</div>
+                </div>
+
+                <!-- Humidity Gauge -->
+                <div class="gauge-card">
+                    <h3>Humidity</h3>
+                    <canvas id="humidity-gauge"></canvas>
+                    <div id="humidity-value" class="gauge-value">--%</div>
+                </div>
+
+                <!-- Soil Moisture Gauge -->
+                <div class="gauge-card">
+                    <h3>Soil Moisture</h3>
+                    <canvas id="moisture-gauge"></canvas>
+                    <div id="moisture-value" class="gauge-value">--%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loader"></div>
+        <p>Loading sensor data...</p>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="error-modal" class="modal">
+        <div class="modal-content">
+            <h3>Connection Error</h3>
+            <p id="error-message"></p>
+            <button onclick="retryConnection()">Retry</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <!-- Gauge.js for gauge visualizations -->
+    <script src="https://bernii.github.io/gauge.js/dist/gauge.min.js"></script>
+
+    <!-- Custom Scripts -->
+    <script src="static/js/gauge-config.js"></script>
+    <script src="static/js/app.js"></script>
+</body>
+</html>
